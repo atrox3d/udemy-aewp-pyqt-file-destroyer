@@ -2,11 +2,8 @@ from PyQt6.QtWidgets import (
     QApplication,
     QWidget,
     QVBoxLayout,
-    QHBoxLayout,
     QLabel,
     QPushButton,
-    QLineEdit,
-    QComboBox,
     QFileDialog,
 )
 from PyQt6.QtCore import Qt
@@ -16,7 +13,9 @@ from pathlib import Path
 def create_files():
     root = Path('files/')
     for i in range(10):
-        filepath = root / Path(f'file{i}')
+        filename = f'file{i}'
+        print(f'Creating {filename}...')
+        filepath = root / Path(filename)
         filepath.write_text('example text')
 
 
@@ -35,7 +34,10 @@ def destroy_files():
             f.write(b'\x00' * size)
         print(f'deleting {filepath.name}')
         filepath.unlink()
+    if filenames:
         message.setText('Destruction complete.')
+    else:
+        message.setText('No files selected.')
 
 
 create_files()
